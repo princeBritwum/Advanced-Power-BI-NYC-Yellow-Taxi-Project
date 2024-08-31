@@ -7,14 +7,14 @@ This project demonstrates a retail data pipeline built on Azure. The pipeline in
 
 ## Architecture
 
-![docs/Data Architecture.png](https://github.com/princeBritwum/Azure-Retail-Data-Engineering-Project/blob/main/docs/Data%20Architecture.png)
+![docs/architecture_powerBI.png](https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project/blob/main/docs/architecture_powerBI.png)
 
 The architecture includes:
-- **Self-Hosted Integration runtimes** for loading data from on-prem datasource
-- **Azure Data Factory / Azure Synapse Analytics** for orchestrating data movement.
-- **Azure Databricks** for data transformation and processing.
-- **Azure Data Lake** for scalable data storage.
-- **Azure Dedicated SQL Pool** for data warehousing and reporting.
+- **File Store** for storing transactional data in parquet
+- **Ipynb Notebook and MSSQL Staging Table** for extracting parquet data to CSV for bulk insert load.
+- **MSSQL Landing Table** for data Data Storage.
+- **Power BI Desktop** for Report development.
+- **Power BI Service** for managing published reports.
 
 ## Features
 - **Data Ingestion:** Automated pipelines for ingesting raw sales data.
@@ -26,13 +26,32 @@ The architecture includes:
 ### Prerequisites
 
 - Python 3.8+
-- Azure Subscription
-  1. Synapse Workspace
-  2. Dedicated SQL Pool
-  3. Data Lake Gen 2
+- Power BI
+  1. Power BI Desktop
+  2. Power BI Service with Premium Capacity
+  3. Power BI Pro-License
   4. Databricks
-- [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
-- Jupyter Notebook
-- On-Premise Server with MSSQL Db
+- MSSQL Database
+  1. Stating Table
+  2. Landing Table
+
+
+### Problem Statement
+The client have business transactions exported into parquet files and stored in a secure file server location every night. The client transaction system generates well over 12 million records every month. He wants to utilize the Power BI for analytics but then also have a MSSQL datastore where all these transaction files will be transformed and securely stored for future use.
+
+
+### Approach
+**As indicated in the architecture, this is how we plan to implement the solution**
+- First of we use pandas to transform the transaction files in parquet to csv
+- When we have the files in CSV , we will then use Bulk insert to data from fileserver to a staging table
+- We will then insert into the lading table which has have been properly partitioned for performance when using as a source for Power BI and other anlytics activities
+- In Power BI we will implement incremental refresh to incrementaly load data from landing table (source table) into Power BI.
+- We will also define roles level security in the report to provide secured access and view to only allowed and permited users
+- We will make use of XMLA endpoint to make meta data changes to our report since we dont want to break the incremental partions created when we published to Power BI Service
+- We would also use Tabular Editor 3 to see how to manage the partitions created by incremental refresh
+
+**We have a lot to do so lets dive in >>**
+
+
 
 ### Setup
