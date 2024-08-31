@@ -271,7 +271,7 @@ Now we can set up our incremental refresh on the table (NycTripW45) below;
 ![docs/xmla.png](https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project/blob/main/docs/xmla.png)
 
    
-4. Once the report is published, go ahead to the service and setup your gateway and datasource connections. Please note that when you pusblish a dataset with incremental refresh defined, partitions are created according what was defined in the Power BI desktop. In our scenario, data will be archived for the past year and new data will be loaded every day into the dataset when the maximum record of the column(LoadDate) changes ie if the max record of LoadDate detected in our view [dbo_PartNyCTripView] is higher than the present record in the data(semantic) model. This partition however is not created until you refresh power BI on the service for the first time. To check the partition created by incremental refresh, you can use the Analysis services in SQL management studio or Tabular Editor.
+3. Once the report is published, go ahead to the service and setup your gateway and datasource connections. Please note that when you pusblish a dataset with incremental refresh defined, partitions are created according what was defined in the Power BI desktop. In our scenario, data will be archived for the past year and new data will be loaded every day into the dataset when the maximum record of the column(LoadDate) changes ie if the max record of LoadDate detected in our view [dbo_PartNyCTripView] is higher than the present record in the data(semantic) model. This partition however is not created until you refresh power BI on the service for the first time. To check the partition created by incremental refresh, you can use the Analysis services in SQL management studio or Tabular Editor.
    - To connect to Analysis services, you will need the connection string in the setting of the semantic model of your published report.
 	![docs/connectionString.png](https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project/blob/main/docs/connectionString.png)
 
@@ -280,3 +280,4 @@ Now we can set up our incremental refresh on the table (NycTripW45) below;
 
    - The partitions are defined as was setup in the incremental refresh in our Power BI desktop
      ![docs/partitionsAnalysis.png](https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project/blob/main/docs/partitionsAnalysis.png)
+
