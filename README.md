@@ -282,10 +282,9 @@ Now we can set up our incremental refresh on the table (NycTripW45) below;
      ![docs/partitionsAnalysis.png](https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project/blob/main/docs/partitionsAnalysis.png)
 
 4. Now we have our model in the service, in businesses, there are situations where you will need to create new measures and new calculated columns and sometimes add new tables and relationships to your data model on service. Since you have altered your semantic model with XMLA endpoint and implemented incremental refresh, there is a need to do metadata changes and updates so that we do not break or destroy the partitions we have defined in model. To make these meta data changesn and manage our partitions we need to utilize external tools in this aspect.
-   
-5. For external tools , we will make use of AML Toolkit and Tabular Editor 3 for this activity.
 
-6. We have created calculated columns and measures that were not in our original data model published; We have created columns [TripSpeed] and [TripTime] as well as measures [AverageSpeed], [AverageTime], [MinSpeed] and [MaxSpeed]. If we didnt have incremental refresh implemented, making changes would have been as straight as publishing the report to override the current model on service. But since we have incremental refresh implemented and partitions are defined for our model, overriding the model on service by republishing will break the current partition. For us to promote the current measures and calculated columns we will only make meta data changes to our model. 
+
+5. We have created calculated columns and measures that were not in our original data model published; We have created columns [TripSpeed] and [TripTime] as well as measures [AverageSpeed], [AverageTime], [MinSpeed] and [MaxSpeed]. If we didnt have incremental refresh implemented, making changes would have been as straight as publishing the report to override the current model on service. But since we have incremental refresh implemented and partitions are defined for our model, overriding the model on service by republishing will break the current partition. For us to promote the current measures and calculated columns we will only make meta data changes to our model using external tools like AML Toolkit and Tabular Editor 3 for this activity;
 
    - Next connect to the Analysis Services and authenticate with your Microsoft Entra details
 
