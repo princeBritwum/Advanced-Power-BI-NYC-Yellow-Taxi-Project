@@ -243,7 +243,7 @@ The client have business transactions exported into parquet files and stored in 
 
 1. To emplement incremental refresh on our landing table, we need to ensure the following;
 - Our table is able to query fold - To make this possible, ensure you have done most of the basic transformation on the MSSQL Query and create a materialized view for the table. In this case I created a view called dbo_PartNyCTripView and used it as my source in the query editor as shown below in the mquery
-- Create rangeStart and rangeEnd parameters
+- Create rangeStart and rangeEnd parameters with dates as specified below
 - filter your incremental date column in our case (LoadDate) on table(NycTripW45) with the parameters defined in the previous step
 
 
@@ -260,6 +260,11 @@ This is the mquery for the table (NycTripW45) in query editor
 	in
     #"Filtered Rows"
 
-Now we can set up our incremental refresh on the NYlike below;
+Now we can set up our incremental refresh on the table (NycTripW45) below;
 
 ![docs/incremental_refresh.png](https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project/blob/main/docs/incremental_refresh.png)
+
+2. Once the report is published, go ahead to the service and setup your gateway and datasource connections. Please note that when you pusblish a dataset with incremental refresh, partitions are created according what you defined in the Power BI desktop. In our scenario, data will be archived for the past year and new data will be loaded every day into the dataset when the maximum record of the LoadDate changes.
+
+3. Save the Power Bi report when the incremental refresh is enabled and publish to the premium capacity workspace. To work with incremental refresh and make meta data changes to your  you need to enable xmla endpoints in the 
+   
