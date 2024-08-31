@@ -241,3 +241,9 @@ The client have business transactions exported into parquet files and stored in 
 
 **We have our database ready, connect Power BI to it and delve into that**
 
+1. To emplement incremental refresh on our landing table, we need to ensure the following;
+- Our table is able to query fold
+- Create rangeStart and rangeEnd parameters
+- filter the table with the parameters defined
+
+
