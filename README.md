@@ -246,4 +246,14 @@ The client have business transactions exported into parquet files and stored in 
 - Create rangeStart and rangeEnd parameters
 - filter the table with the parameters defined
 
+![docs/QueryEditor.png](https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project/blob/main/docs/QueryEditor.png)
+
+   ```sql
+	   let
+	    Source = Sql.Database("WORKSTATION-006", "AWDW2022", [CommandTimeout=#duration(0, 2, 0, 0)]),
+	    dbo_PartNyCTripView = Source{[Schema="dbo",Item="PartNyCTripView"]}[Data],
+	    #"Changed Type" = Table.TransformColumnTypes(dbo_PartNyCTripView,{{"LoadDate", type datetime}}),
+	    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [LoadDate] >= RangeStart and [LoadDate] < RangeEnd)
+	    in
+	    #"Filtered Rows"
 
