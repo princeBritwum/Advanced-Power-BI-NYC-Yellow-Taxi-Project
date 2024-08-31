@@ -278,3 +278,5 @@ Now we can set up our incremental refresh on the table (NycTripW45) below;
    - Next connect to the Analysis Services and authenticate with your Microsoft Entra details
      ![docs/AnalysisServices.png](https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project/blob/main/docs/AnalysisServices.png)
 
+   - The partitions are defined as was setup in the incremental refresh in our Power BI desktop
+     ![docs/partitionsAnalysis.png](https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project/blob/main/docs/partitionsAnalysis.png)
