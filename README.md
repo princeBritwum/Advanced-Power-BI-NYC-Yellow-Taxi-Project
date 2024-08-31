@@ -281,3 +281,8 @@ Now we can set up our incremental refresh on the table (NycTripW45) below;
    - The partitions are defined as was setup in the incremental refresh in our Power BI desktop
      ![docs/partitionsAnalysis.png](https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project/blob/main/docs/partitionsAnalysis.png)
 
+4. Now we have our model in the service, in businesses, there are situations where you will need to create new measures and new calculated columns and sometimes add new tables and relationships to your data model on service. Since you have altered your semantic model with XMLA endpoint and implemented incremental refresh, there is a need to do metadata changes and updates so that we do not break or destroy the partitions we have defined in model. To make these meta data changesn and manage our partitions we need to utilize external tools in this aspect.
+   
+5. For external tools , we will make use of AML Toolkit and Tabular Editor 3 for this activity.
+
+6. 
