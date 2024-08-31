@@ -239,3 +239,5 @@ The client have business transactions exported into parquet files and stored in 
 
 ![docs/Landing Table.png](https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project/blob/main/docs/Landing%20Table.png)
 
+**We have our database ready, connect Power BI to it and delve into that**
+
