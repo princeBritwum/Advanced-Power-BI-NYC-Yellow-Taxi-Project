@@ -164,59 +164,75 @@ The client have business transactions exported into parquet files and stored in 
     ON [dbo].[PartNycTrip]([LoadDate]);
 
 5. Now we have all our tables set up, we will now begin to insert data from the staging table into the landing table and check our partitions and the data loaded into it
-```sql
-	 INSERT INTO [PartNycTrip] (
-			[TripID],
-			[LoadDate]
-		      ,[pickupdatekey]
-		       ,[VendorID]
-		      ,[tpep_pickup_datetime]
-		      ,[tpep_dropoff_datetime]
-		      ,[passenger_count]
-		      ,[trip_distance]
-		      ,[RatecodeID]
-		      ,[store_and_fwd_flag]
-		      ,[PULocationID]
-		      ,[DOLocationID]
-		      ,[payment_type]
-		      ,[fare_amount]
-		      ,[extra]
-		      ,[mta_tax]
-		      ,[tip_amount]
-		      ,[tolls_amount]
-		      ,[improvement_surcharge]
-		      ,[total_amount]
-		      ,[congestion_surcharge]
-		      ,[airport_fee])
-		
-		SELECT	top (100)
-				--NEXT VALUE FOR NycSeq AS [TripID],
-				CAST(GETDATE() AS DATE) as [LoadDate],
-				FORMAT([tpep_pickup_datetime], 'yyyyMMdd') AS [pickupdatekey]
-				,[VendorID]
-		      ,[tpep_pickup_datetime],
-		      [tpep_dropoff_datetime]
-		      ,[passenger_count]
-		      ,[trip_distance]
-		      ,[RatecodeID]
-		      ,[store_and_fwd_flag]
-		      ,[PULocationID]
-		      ,[DOLocationID]
-		      ,[payment_type]
-		      ,[fare_amount]
-		      ,[extra]
-		      ,[mta_tax]
-		      ,[tip_amount]
-		      ,[tolls_amount]
-		      ,[improvement_surcharge]
-		      ,[total_amount]
-		      ,[congestion_surcharge]
-		      ,[airport_fee]
-		 FROM [AWDW2022].[dbo].[StageNycTrip]
-		
-		  where 
-		FORMAT([tpep_pickup_datetime], 'yyyyMMdd') >
-		FORMAT(DATEADD(MONTH, 0,CAST( STUFF(STUFF(CONVERT(VARCHAR(8), FORMAT([tpep_pickup_datetime], 'yyyyMMdd')), 5, 0, '-'), 8, 0, '-') AS DATE)), 'yyyyMMdd')
-		and FORMAT([tpep_pickup_datetime], 'yyyyMMdd') <=
-		FORMAT(DATEADD(MONTH, 1,CAST( STUFF(STUFF(CONVERT(VARCHAR(8), FORMAT([tpep_pickup_datetime], 'yyyyMMdd')), 5, 0, '-'), 8, 0, '-') AS DATE)), 'yyyyMMdd')
+	  ```sql
+		 
+		INSERT INTO [PartNycTrip] ([TripID], [LoadDate] , [pickupdatekey] , [VendorID] , [tpep_pickup_datetime] , [tpep_dropoff_datetime] , [passenger_count] , [trip_distance] , 		[RatecodeID] , [store_and_fwd_flag] , [PULocationID] , [DOLocationID] , [payment_type] , [fare_amount] , [extra] , [mta_tax] , [tip_amount] , [tolls_amount] ,
+		[improvement_surcharge] , [total_amount] , [congestion_surcharge] , [airport_fee])
+		SELECT
+		 NEXT VALUE FOR NycSeq AS [TripID],
+		 CAST(GETDATE() AS DATE) AS [LoadDate],
+		 FORMAT([tpep_pickup_datetime], 'yyyyMMdd') AS [pickupdatekey] ,
+		 [VendorID] ,
+		 [tpep_pickup_datetime],
+		 [tpep_dropoff_datetime] ,
+		 [passenger_count] ,
+		 [trip_distance] ,
+		 [RatecodeID] ,
+		 [store_and_fwd_flag] ,
+		 [PULocationID] ,
+		 [DOLocationID] ,
+		 [payment_type] ,
+		 [fare_amount] ,
+		 [extra] ,
+		 [mta_tax] ,
+		 [tip_amount] ,
+		 [tolls_amount] ,
+		 [improvement_surcharge] ,
+		 [total_amount] ,
+		 [congestion_surcharge] ,
+		 [airport_fee]
+		FROM [AWDW2022].[dbo].[StageNycTrip]
+		WHERE FORMAT([tpep_pickup_datetime], 'yyyyMMdd') > FORMAT(DATEADD(MONTH, 0, CAST(STUFF(STUFF(CONVERT(VARCHAR(8), FORMAT([tpep_pickup_datetime], 'yyyyMMdd')), 5, 0, '-'), 8, 		0, '-') 	AS DATE)), 'yyyyMMdd')
+		  AND FORMAT([tpep_pickup_datetime], 'yyyyMMdd') <= FORMAT(DATEADD(MONTH, 1, CAST(STUFF(STUFF(CONVERT(VARCHAR(8), FORMAT([tpep_pickup_datetime], 'yyyyMMdd')), 5, 0, '-'), 		8, 0, '-
+		') AS DATE)), 'yyyyMMdd')
+   
+	--Lets check the partitions with the query
+   
+	SELECT SCHEMA_NAME(t.schema_id) AS SchemaName, t.name AS TableName, i.name AS IndexName, 
+	    p.partition_number AS PartitionNumber, f.name AS PartitionFunctionName, p.rows AS Rows, rv.value AS BoundaryValue, 
+	CASE WHEN ISNULL(rv.value, rv2.value) IS NULL THEN 'N/A' 
+	ELSE
+	    CASE WHEN f.boundary_value_on_right = 0 AND rv2.value IS NULL THEN '>=' 
+	        WHEN f.boundary_value_on_right = 0 THEN '>' 
+	        ELSE '>=' 
+	    END + ' ' + ISNULL(CONVERT(varchar(64), rv2.value), 'Min Value') + ' ' + 
+	        CASE f.boundary_value_on_right WHEN 1 THEN 'and <' 
+	                ELSE 'and <=' END 
+	        + ' ' + ISNULL(CONVERT(varchar(64), rv.value), 'Max Value') 
+	END AS TextComparison
+	FROM sys.tables AS t  
+	JOIN sys.indexes AS i  
+	    ON t.object_id = i.object_id  
+	JOIN sys.partitions AS p  
+	    ON i.object_id = p.object_id AND i.index_id = p.index_id   
+	JOIN  sys.partition_schemes AS s   
+	    ON i.data_space_id = s.data_space_id  
+	JOIN sys.partition_functions AS f   
+	    ON s.function_id = f.function_id  
+	LEFT JOIN sys.partition_range_values AS r   
+	    ON f.function_id = r.function_id and r.boundary_id = p.partition_number  
+	LEFT JOIN sys.partition_range_values AS rv
+	    ON f.function_id = rv.function_id
+	    AND p.partition_number = rv.boundary_id     
+	LEFT JOIN sys.partition_range_values AS rv2
+	    ON f.function_id = rv2.function_id
+	    AND p.partition_number - 1= rv2.boundary_id
+	WHERE 
+	    t.name = 'PartNycTrip'
+	    AND i.type <= 1 
+	ORDER BY t.name, p.partition_number;
+
+
+
+6. Now we have all our tables set up, we will now begin to insert data from the staging table into the landing table and check our partitions and the data loaded into it
 
