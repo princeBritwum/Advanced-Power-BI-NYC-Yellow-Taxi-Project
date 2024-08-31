@@ -233,6 +233,9 @@ The client have business transactions exported into parquet files and stored in 
 	ORDER BY t.name, p.partition_number;
 
 
+![docs/Partition.png](https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project/blob/main/docs/Partition.png)
 
-6. Now we have all our tables set up, we will now begin to insert data from the staging table into the landing table and check our partitions and the data loaded into it
+6. Our data is correctly loaded into the partittions we created as shown above, we are now ready to connect our landing table to Power BI.
+
+![docs/Landing Table.png](https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project/blob/main/docs/Landing%20Table.png)
 
