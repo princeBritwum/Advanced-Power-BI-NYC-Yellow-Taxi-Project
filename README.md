@@ -165,57 +165,58 @@ The client have business transactions exported into parquet files and stored in 
 
 5. Now we have all our tables set up, we will now begin to insert data from the staging table into the landing table and check our partitions and the data loaded into it
 ```sql
-    INSERT INTO [PartNycTrip] (
-		[TripID],
-		[LoadDate]
-      ,[pickupdatekey]
-       ,[VendorID]
-      ,[tpep_pickup_datetime]
-      ,[tpep_dropoff_datetime]
-      ,[passenger_count]
-      ,[trip_distance]
-      ,[RatecodeID]
-      ,[store_and_fwd_flag]
-      ,[PULocationID]
-      ,[DOLocationID]
-      ,[payment_type]
-      ,[fare_amount]
-      ,[extra]
-      ,[mta_tax]
-      ,[tip_amount]
-      ,[tolls_amount]
-      ,[improvement_surcharge]
-      ,[total_amount]
-      ,[congestion_surcharge]
-      ,[airport_fee])
-
-SELECT	top (100)
-		--NEXT VALUE FOR NycSeq AS [TripID],
-		CAST(GETDATE() AS DATE) as [LoadDate],
-		FORMAT([tpep_pickup_datetime], 'yyyyMMdd') AS [pickupdatekey]
-		,[VendorID]
-      ,[tpep_pickup_datetime],
-      [tpep_dropoff_datetime]
-      ,[passenger_count]
-      ,[trip_distance]
-      ,[RatecodeID]
-      ,[store_and_fwd_flag]
-      ,[PULocationID]
-      ,[DOLocationID]
-      ,[payment_type]
-      ,[fare_amount]
-      ,[extra]
-      ,[mta_tax]
-      ,[tip_amount]
-      ,[tolls_amount]
-      ,[improvement_surcharge]
-      ,[total_amount]
-      ,[congestion_surcharge]
-      ,[airport_fee]
- FROM [AWDW2022].[dbo].[StageNycTrip]
-
-  where 
-  FORMAT([tpep_pickup_datetime], 'yyyyMMdd') > FORMAT(DATEADD(MONTH, 0,CAST( STUFF(STUFF(CONVERT(VARCHAR(8), FORMAT([tpep_pickup_datetime], 'yyyyMMdd')), 5, 0, '-'), 8, 0, '-') AS DATE)), 'yyyyMMdd')
-  and FORMAT([tpep_pickup_datetime], 'yyyyMMdd') <= FORMAT(DATEADD(MONTH, 1,CAST( STUFF(STUFF(CONVERT(VARCHAR(8), FORMAT([tpep_pickup_datetime], 'yyyyMMdd')), 5, 0, '-'), 8, 0, '-') AS DATE)), 'yyyyMMdd')
-
+	 INSERT INTO [PartNycTrip] (
+			[TripID],
+			[LoadDate]
+		      ,[pickupdatekey]
+		       ,[VendorID]
+		      ,[tpep_pickup_datetime]
+		      ,[tpep_dropoff_datetime]
+		      ,[passenger_count]
+		      ,[trip_distance]
+		      ,[RatecodeID]
+		      ,[store_and_fwd_flag]
+		      ,[PULocationID]
+		      ,[DOLocationID]
+		      ,[payment_type]
+		      ,[fare_amount]
+		      ,[extra]
+		      ,[mta_tax]
+		      ,[tip_amount]
+		      ,[tolls_amount]
+		      ,[improvement_surcharge]
+		      ,[total_amount]
+		      ,[congestion_surcharge]
+		      ,[airport_fee])
+		
+		SELECT	top (100)
+				--NEXT VALUE FOR NycSeq AS [TripID],
+				CAST(GETDATE() AS DATE) as [LoadDate],
+				FORMAT([tpep_pickup_datetime], 'yyyyMMdd') AS [pickupdatekey]
+				,[VendorID]
+		      ,[tpep_pickup_datetime],
+		      [tpep_dropoff_datetime]
+		      ,[passenger_count]
+		      ,[trip_distance]
+		      ,[RatecodeID]
+		      ,[store_and_fwd_flag]
+		      ,[PULocationID]
+		      ,[DOLocationID]
+		      ,[payment_type]
+		      ,[fare_amount]
+		      ,[extra]
+		      ,[mta_tax]
+		      ,[tip_amount]
+		      ,[tolls_amount]
+		      ,[improvement_surcharge]
+		      ,[total_amount]
+		      ,[congestion_surcharge]
+		      ,[airport_fee]
+		 FROM [AWDW2022].[dbo].[StageNycTrip]
+		
+		  where 
+		FORMAT([tpep_pickup_datetime], 'yyyyMMdd') >
+		FORMAT(DATEADD(MONTH, 0,CAST( STUFF(STUFF(CONVERT(VARCHAR(8), FORMAT([tpep_pickup_datetime], 'yyyyMMdd')), 5, 0, '-'), 8, 0, '-') AS DATE)), 'yyyyMMdd')
+		and FORMAT([tpep_pickup_datetime], 'yyyyMMdd') <=
+		FORMAT(DATEADD(MONTH, 1,CAST( STUFF(STUFF(CONVERT(VARCHAR(8), FORMAT([tpep_pickup_datetime], 'yyyyMMdd')), 5, 0, '-'), 8, 0, '-') AS DATE)), 'yyyyMMdd')
 
