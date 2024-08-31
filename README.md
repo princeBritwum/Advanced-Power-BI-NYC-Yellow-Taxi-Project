@@ -302,3 +302,9 @@ Now we can set up our incremental refresh on the table (NycTripW45) below;
    - Click on the button Validate selection to validate the changes we want to promote.
      
      ![docs/Publish Chances.png](https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project/blob/main/docs/Publish%20Chances.png)
+
+   - Once you have verefied every changes and they are okay, click on the update to promote the changes to the service
+     
+     ![docs/updatechanges.png](https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project/blob/main/docs/updatechanges.png)
+
+   - 
