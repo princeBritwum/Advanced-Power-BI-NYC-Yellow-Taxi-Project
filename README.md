@@ -47,7 +47,7 @@ The client have business transactions exported into parquet files and stored in 
 - We will then insert into the lading table which has have been properly partitioned for performance when using as a source for Power BI and other anlytics activities
 - In Power BI we will implement incremental refresh to incrementaly load data from landing table (source table) into Power BI.
 - We will also define roles level security in the report to provide secured access and view to only allowed and permited users
-- We will make use of XMLA endpoint to make meta data changes to our report since we dont want to break the incremental partions created when we published to Power BI Service
+- We will make use of AML toolkit to make meta data changes to our report since we dont want to break the incremental partions created when we published to Power BI Service
 - We would also use Tabular Editor 3 to see how to manage the partitions created by incremental refresh
 
 **We have a lot to do so lets dive in >>**
