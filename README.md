@@ -286,5 +286,10 @@ Now we can set up our incremental refresh on the table (NycTripW45) below;
 
 5. We have created calculated columns and measures that were not in our original data model published; We have created columns [TripSpeed] and [TripTime] as well as measures [AverageSpeed], [AverageTime], [MinSpeed] and [MaxSpeed]. If we didnt have incremental refresh implemented, making changes would have been as straight as publishing the report to override the current model on service. But since we have incremental refresh implemented and partitions are defined for our model, overriding the model on service by republishing will break the current partition. For us to promote the current measures and calculated columns we will only make meta data changes to our model using external tools like AML Toolkit and Tabular Editor 3 for this activity;
 
-   - Connect the Power BI report with new measures and calculated columns as source and the connection string you used when you connected to the analysis service as destination and choose the senatic model on service
+   - Connect the Power BI report with new measures and calculated columns as source and the connection string used when we connected to the analysis service as destination and choose the senatic model on service. See below;
+     
+     ![docs/Connecting to AML.png](https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project/blob/main/docs/Connecting%20to%20AML.png)
 
+- Once connected, look out for changes between the two data sets ie PBI Desktop and PBI Service and lookout for status which is 'Missing in Target' and 'Different Definitions', once you have identified the tables, measures and columns that are missing or tables that have changed, use the select actions button and choose Hide Skip objects with Same Definitions. This will hide all other changes except the ones we need to promote to the service.
+
+     ![docs/Connecting to AML.png](https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project/blob/main/docs/Connecting%20to%20AML.png)
