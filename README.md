@@ -293,3 +293,6 @@ Now we can set up our incremental refresh on the table (NycTripW45) below;
 - Once connected, look out for changes between the two data sets ie PBI Desktop and PBI Service and lookout for status which is 'Missing in Target' and 'Different Definitions', once you have identified the tables, measures and columns that are missing or tables that have changed, use the select actions button and choose Hide Skip objects with Same Definitions. This will hide all other changes except the ones we need to promote to the service.
 
      ![docs/Connecting to AML.png](https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project/blob/main/docs/Connecting%20to%20AML.png)
+
+
+     ![docs/skipObjectswithdf.png](https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project/blob/main/docs/skipObjectswithdf.png)
