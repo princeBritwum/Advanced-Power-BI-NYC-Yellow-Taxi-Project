@@ -264,7 +264,7 @@ Now we can set up our incremental refresh on the table (NycTripW45) below;
 
 ![docs/incremental_refresh.png](https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project/blob/main/docs/incremental_refresh.png)
 
-2. Once the report is published, go ahead to the service and setup your gateway and datasource connections. Please note that when you pusblish a dataset with incremental refresh, partitions are created according what you defined in the Power BI desktop. In our scenario, data will be archived for the past year and new data will be loaded every day into the dataset when the maximum record of the LoadDate changes.
 
-3. Save the Power Bi report when the incremental refresh is enabled and publish to the premium capacity workspace. To work with incremental refresh and make meta data changes to your  you need to enable xmla endpoints in the 
+2. Save the Power Bi report when the incremental refresh is enabled and publish to the premium capacity workspace. To work with incremental refresh and make meta data changes to your data model, you need to enable xmla endpoints in the Admin portal under Governance and insight in the settings page.
    
+3. Once the report is published, go ahead to the service and setup your gateway and datasource connections. Please note that when you pusblish a dataset with incremental refresh, partitions are created according what was defined in the Power BI desktop. In our scenario, data will be archived for the past year and new data will be loaded every day into the dataset when the maximum record of the column(LoadDate) changes ie if the max record of LoadDate detected in our view [dbo_PartNyCTripView] is higher than the present record in the data model. 
