@@ -57,5 +57,30 @@ The client have business transactions exported into parquet files and stored in 
 ### Setup
 1. Clone this repository:
    ```bash
-   git clone https://github.com/princeBritwum/Azure-Retail-Data-Engineering-Project.git
-   cd Azure-Retail-Data-Engineering-Project
+   git clone https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project.git
+   cd Advanced-Power-BI-NYC-Yellow-Taxi-Project
+
+2. First off, we need to create our staging table:
+   ```sql
+       CREATE TABLE [dbo].[StageNycTrip](
+      	[VendorId] [int] NULL,
+      	[tpep_pickup_datetime] [datetime] NULL,
+      	[tpep_dropoff_datetime] [datetime] NULL,
+      	[passenger_count] [int] NULL,
+      	[trip_distance] [float] NULL,
+      	[PULocationID] [float] NULL,
+      	[DOLocationID] [float] NULL,
+      	[RatecodeID] [int] NULL,
+      	[store_and_fwd_flag] [nchar](10) NULL,
+      	[payment_type] [int] NULL,
+      	[fare_amount] [float] NULL,
+      	[extra] [float] NULL,
+      	[mta_tax] [float] NULL,
+      	[Improvement_surcharge] [float] NULL,
+      	[tip_amount] [float] NULL,
+      	[tolls_amount] [float] NULL,
+      	[total_amount] [float] NULL,
+      	[Congestion_Surcharge] [float] NULL,
+      	[Airport_fee] [float] NULL
+      ) ON [PRIMARY]
+   
