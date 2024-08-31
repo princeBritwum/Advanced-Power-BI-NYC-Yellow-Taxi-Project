@@ -60,7 +60,13 @@ The client have business transactions exported into parquet files and stored in 
    git clone https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project.git
    cd Advanced-Power-BI-NYC-Yellow-Taxi-Project
 
-2. First off, we need to create our staging table:
+2. First of we need to convert our parquet file to csv and store it back in the file server with the code below;
+   ```python
+        import pyarrow.parquet as pq
+        import pandas as pd
+        df = pd.read_parquet(r"C:\Users\PrinceBritwum\Documents\yellow_tripdata_2016-03.parquet")
+        df.to_csv(r"C:\Users\PrinceBritwum\Documents\yellow_tripdata_2016-03.csv")
+2. Next , we need to create our staging table:
    ```sql
        CREATE TABLE [dbo].[StageNycTrip](
       	[VendorId] [int] NULL,
@@ -84,3 +90,4 @@ The client have business transactions exported into parquet files and stored in 
       	[Airport_fee] [float] NULL
       ) ON [PRIMARY]
    
+3. 
