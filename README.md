@@ -61,12 +61,13 @@ The client have business transactions exported into parquet files and stored in 
    cd Advanced-Power-BI-NYC-Yellow-Taxi-Project
 
 2. First of we need to convert our parquet file to csv and store it back in the file server with the code below;
-   ```python
+   ```ipynb
         import pyarrow.parquet as pq
         import pandas as pd
         df = pd.read_parquet(r"C:\Users\PrinceBritwum\Documents\yellow_tripdata_2016-03.parquet")
         df.to_csv(r"C:\Users\PrinceBritwum\Documents\yellow_tripdata_2016-03.csv")
-2. Next , we need to create our staging table:
+   
+2. Next , we need to create our staging table where we will load the transaction files from the file store to:
    ```sql
        CREATE TABLE [dbo].[StageNycTrip](
       	[VendorId] [int] NULL,
@@ -90,4 +91,12 @@ The client have business transactions exported into parquet files and stored in 
       	[Airport_fee] [float] NULL
       ) ON [PRIMARY]
    
-3. 
+3. We use SQL Bulk Insert function to insert transactions into the staging table
+   ```sql
+        BULK INSERT [dbo].[StageNycTrip]
+        FROM 'C:\Users\PrinceBritwum\Documents\yellow_tripdata_2016-03.csv'
+        WITH (FIRSTROW = 2, 
+        	  FIELDTERMINATOR = ',', 
+        	  ROWTERMINATOR = '\n');
+        
+        SELECT TOP (1000)* FROM StageNycTrip;
