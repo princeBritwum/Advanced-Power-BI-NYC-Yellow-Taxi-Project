@@ -285,4 +285,7 @@ Now we can set up our incremental refresh on the table (NycTripW45) below;
    
 5. For external tools , we will make use of AML Toolkit and Tabular Editor 3 for this activity.
 
-6. 
+6. We have created calculated columns and measures that were not in our original data model published; We have created columns [TripSpeed] and [TripTime] as well as measures [AverageSpeed], [AverageTime], [MinSpeed] and [MaxSpeed]. If we didnt have incremental refresh implemented, making changes would have been as straight as publishing the report to override the current model on service. But since we have incremental refresh implemented and partitions are defined for our model, overriding the model on service by republishing will break the current partition. For us to promote the current measures and calculated columns we will only make meta data changes to our model. 
+
+   - Next connect to the Analysis Services and authenticate with your Microsoft Entra details
+
