@@ -55,3 +55,7 @@ The client have business transactions exported into parquet files and stored in 
 
 
 ### Setup
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/princeBritwum/Azure-Retail-Data-Engineering-Project.git
+   cd Azure-Retail-Data-Engineering-Project
