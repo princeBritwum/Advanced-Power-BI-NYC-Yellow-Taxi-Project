@@ -317,4 +317,6 @@ Now we can set up our incremental refresh on the table (NycTripW45) below;
 
      
 
-     
+ 6. To verify that our incremental refresh works as we deined and partitions are well defined, I ingested new data into the table. This new data was added to the right partition as seen in the image below, with 1 month data being archived and daily data being loaded into the partitions.
+     ![docs/New Partition.png](https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project/blob/main/docs/New%20Partition.png)
+
