@@ -307,4 +307,10 @@ Now we can set up our incremental refresh on the table (NycTripW45) below;
      
      ![docs/updatechanges.png](https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project/blob/main/docs/updatechanges.png)
 
-   - 
+   - If everything goes as planned, we should see the following image with success
+     
+     ![docs/published.png](https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project/blob/main/docs/published.png)
+
+   - Now lets verify if the changes have been promoted to Power BI service.
+
+     
