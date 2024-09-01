@@ -311,6 +311,10 @@ Now we can set up our incremental refresh on the table (NycTripW45) below;
      
      ![docs/published.png](https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project/blob/main/docs/published.png)
 
-   - Now lets verify if the changes have been promoted to Power BI service.
+   - Now lets verify if the calculated columns and measures we created in point 5 have been promoted to Power BI service. We can see from the image below that changes are now showing in Service.
+     
+     ![docs/NewMeasures.png](https://github.com/princeBritwum/Advanced-Power-BI-NYC-Yellow-Taxi-Project/blob/main/docs/NewMeasures.png)
+
+     
 
      
